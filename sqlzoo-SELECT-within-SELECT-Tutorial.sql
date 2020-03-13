@@ -65,4 +65,20 @@ ORDER BY gdp DESC
 LIMIT 1)
 
 
-/* 7-10 to add */
+/* 7 Find the largest country (by area) in each continent, show the continent, the name and the area: */
+
+SELECT continent, name, area FROM world AS x
+  WHERE area >= ALL
+    (SELECT area FROM world AS y
+        WHERE y.continent=x.continent
+          AND area > 0)
+          
+
+/* 8 List each continent and the name of the country that comes first alphabetically. */
+
+SELECT continent, name FROM world AS x
+  WHERE name <= ALL
+    (SELECT name FROM world AS y
+        WHERE y.continent=x.continent
+         ORDER BY name)
+
